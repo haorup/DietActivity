@@ -1,10 +1,10 @@
 import { StyleSheet, Text, View } from 'react-native'
 import React from 'react'
 
-export default function AddActivity() {
+export default function ItemList() {
   return (
     <View>
-      <Text>AddActivity</Text>
+      <Text>ItemList</Text>
     </View>
   )
 }
