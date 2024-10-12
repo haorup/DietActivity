@@ -1,7 +1,8 @@
-import { StyleSheet, Text, View } from 'react-native';
+import { StyleSheet, Text, TextInput, View } from 'react-native';
 import React from 'react';
 import DropDownPicker from 'react-native-dropdown-picker';
 import { useState } from 'react';
+import DateTimePicker from '@react-native-community/datetimepicker';
 
 
 export default function AddActivity() {
@@ -13,8 +14,18 @@ export default function AddActivity() {
     {label: 'Swimming', value: 'Swimming'},
     {label: 'Weights', value: 'Weights'},
     {label: 'Yoga', value: 'Yoga'},]);
+    const [date, setDate] = useState(null);
+    const [showDatePicker, setShowDatePicker] = useState(false);
+    const options = {weekday: 'short', year: 'numeric', month: 'short', day: 'numeric'};
+
+    function handleDatePicker() {
+      setDate(new Date());
+      setShowDatePicker(!showDatePicker);
+    }
+
   return (
     <View>
+      <Text>Activity *</Text>
       <DropDownPicker
         placeholder="Select An Activity"
         open={open}
@@ -24,6 +35,15 @@ export default function AddActivity() {
         setValue={setValue}
         setItems={setActivities}
       />
+      <Text>Date *</Text>
+      <TextInput style={{borderWidth: 2, borderColor: 'black', height: 50}}
+      onPressIn={handleDatePicker}
+      value={date && date.toLocaleDateString('en-US', options). replace(/,/g, '')}/>
+      {showDatePicker && <DateTimePicker
+          value={new Date()}
+          mode='date'
+          display="inline"/>}
+
     </View>
   )
 }
