@@ -8,7 +8,7 @@ import ItemList from '../Components/ItemList';
 
 export default function Activity({navigation}) {
 
-  const activityArr = useContext(DataContext);
+  const {state} = useContext(DataContext);
 
   function handleAddButton() {
     navigation.push('AddActivity');
@@ -28,7 +28,8 @@ export default function Activity({navigation}) {
   return (
     <View>
       <DataProvider>
-      <ItemList dataArr={activityArr.Activity} />
+        <Text>Activity</Text>
+      <ItemList dataArr={state.activity} />
       </DataProvider>
     </View>
   )

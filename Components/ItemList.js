@@ -2,8 +2,10 @@ import { StyleSheet, Text, View, FlatList } from 'react-native'
 import React from 'react'
 
 export default function ItemList({dataArr}) {
+    console.log(dataArr);
   return (
     <View>
+        <Text>ActivityList</Text>
       <FlatList data={dataArr}
         renderItem={({item}) => (
           <View>
