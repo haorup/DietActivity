@@ -1,5 +1,6 @@
 import { StyleSheet, Text, View, FlatList } from 'react-native'
 import React from 'react'
+import ListEntry from './ListEntry';
 
 export default function ItemList({ dataArr }) {
     console.log(dataArr);
@@ -8,13 +9,7 @@ export default function ItemList({ dataArr }) {
 
             <FlatList data={dataArr}
                 renderItem={({ item }) => (
-                    <View>
-                        {item.activity && <Text>Activity: {item.activity}</Text>}
-                        {item.description && <Text>Description: {item.description}</Text>}
-                        {item.date && <Text>Date: {item.date}</Text>}
-                        {item.duration && <Text>Duration: {item.duration}</Text>}
-                        {item.calories && <Text>Calories: {item.calories}</Text>}
-                    </View>
+                    <ListEntry itemObj={item} />
                 )}
             />
         </View>
