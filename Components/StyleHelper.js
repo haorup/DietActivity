@@ -15,7 +15,7 @@ const commonStyles = {
     container: {
         flex: 1,
         backgroundColor: 'lightgreen',
-        // alignItems: 'center',
+    //    alignItems: 'center',
         // justifyContent: 'center',
         padding: 30,
         paddingTop: 30,
@@ -29,6 +29,7 @@ const commonStyles = {
         marginBottom: 5,
       },
     input: {
+        width: '100%',
         borderWidth: 2,
         borderColor: ColorHelper.blackColor,
         height: 50,
@@ -43,6 +44,13 @@ const commonStyles = {
         borderColor: ColorHelper.blackColor,
         borderWidth: 2,
         marginBottom: 10,
+    },
+    buttonContainer: {
+        width: '60%',
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+        alignSelf: 'center',
+        marginBottom: 5,
     },
 }
 

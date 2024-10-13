@@ -49,7 +49,7 @@ export default function AddDiet() {
   return (
     <View style={StyleHelper.container}>
       <Text style={StyleHelper.text}>Description *</Text>
-      <TextInput style={[StyleHelper.input, {height: 100}]}
+      <TextInput style={[StyleHelper.input, { height: 100 }]}
         multiline={true}
         value={description} onChangeText={(newDescription) => setDescription(newDescription)} />
 
@@ -60,9 +60,12 @@ export default function AddDiet() {
       <DatePicker date={date} setDate={setDate}
         formattedDate={formattedDate} setFormattedDate={setFormattedDate}
         showDatePicker={showDatePicker} setShowDatePicker={setShowDatePicker} />
-
-      <Button title='Save' onPress={() => { handleSave() }} />
-      <Button title='Cancel' onPress={() => { handleCancel() }} />
+      <View style={{ flex: 1, justifyContent: 'center' }}>
+        <View style={StyleHelper.buttonContainer}>
+          <Button title='Save' onPress={() => { handleSave() }} />
+          <Button title='Cancel' onPress={() => { handleCancel() }} />
+        </View>
+      </View>
     </View>
   )
 }

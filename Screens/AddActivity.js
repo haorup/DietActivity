@@ -1,4 +1,4 @@
-import { StyleSheet, Text, TextInput, View, Button, Alert } from 'react-native';
+import { Text, TextInput, View, Button, Alert } from 'react-native';
 import React from 'react';
 import Dropdown from '../Components/Dropdown';
 import { useState } from 'react';
@@ -54,17 +54,19 @@ export default function AddActivity() {
       <Dropdown passedValue={value} setPassedValue={setValue} />
 
       <Text style={StyleHelper.text}>Duration (min)*</Text>
-      <TextInput style={ StyleHelper.input}
+      <TextInput style={StyleHelper.input}
         value={durationData} onChangeText={(newDuration) => setDurationData(newDuration)} />
 
       <DatePicker date={date} setDate={setDate}
         formattedDate={formattedDate} setFormattedDate={setFormattedDate}
         showDatePicker={showDatePicker} setShowDatePicker={setShowDatePicker} />
 
-      <Button title='Save' onPress={() => { handleSave() }} />
-      <Button title='Cancel' onPress={() => { handleCancel() }} />
+      <View style={{ flex: 1, justifyContent: 'center' }}>
+        <View style={StyleHelper.buttonContainer}>
+          <Button title='Save' onPress={() => { handleSave() }} />
+          <Button title='Cancel' onPress={() => { handleCancel() }} />
+        </View>
+      </View>
     </View>
   )
 }
-
-const styles = StyleSheet.create({})
