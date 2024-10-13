@@ -32,7 +32,7 @@ export default function AddActivity() {
 
       <Dropdown passedValue={value} setPassedValue={setValue} />
 
-      <Text>Duration *</Text>
+      <Text>Duration (min)*</Text>
       <TextInput style={{ borderWidth: 2, borderColor: 'black', height: 50 }}
         value={durationData} onChangeText={(newDuration) => setDurationData(newDuration)} />
 

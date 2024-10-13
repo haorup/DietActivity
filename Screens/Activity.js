@@ -28,7 +28,6 @@ export default function Activity({navigation}) {
   return (
     <View>
       <DataProvider>
-        <Text>Activity</Text>
       <ItemList dataArr={state.activity} />
       </DataProvider>
     </View>
