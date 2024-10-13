@@ -8,12 +8,14 @@ export const DataProvider = ({ children }) => {
   const addNewDiet = (newElement) => {
     setState((prevState) => ({
       diet: [...prevState.diet, newElement],
+      activity: [...prevState.activity],
     }));
   };
 
   const addNewActivity = (newElement) => {
     setState((prevState) => ({
       activity: [...prevState.activity, newElement],
+        diet: [...prevState.diet],
     }));
     };
 

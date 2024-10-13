@@ -35,6 +35,8 @@ export default function AddDiet() {
       <DatePicker date={date} setDate={setDate}
         formattedDate={formattedDate} setFormattedDate={setFormattedDate}
         showDatePicker={showDatePicker} setShowDatePicker={setShowDatePicker} />
+
+        <Button title='Save' onPress={() => { handleSave() }} />
     </View>
   )
 }
