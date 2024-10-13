@@ -2,6 +2,7 @@ import { StyleSheet, Text, View } from 'react-native'
 import React from 'react'
 import DropDownPicker from 'react-native-dropdown-picker';
 import { useState } from 'react';
+import { StyleHelper } from './StyleHelper';
 
 export default function Dropdown({passedValue, setPassedValue}) {
     const [open, setOpen] = useState(false);
@@ -13,7 +14,7 @@ export default function Dropdown({passedValue, setPassedValue}) {
       { label: 'Yoga', value: 'Yoga' },]);
   return (
     <View style={{ zIndex: open ? 1000 : 0 }}>
-        <Text>Activity *</Text>
+        <Text style={StyleHelper.text}>Activity *</Text>
         <DropDownPicker
           placeholder="Select An Activity"
           open={open}

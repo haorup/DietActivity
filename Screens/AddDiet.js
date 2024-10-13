@@ -5,10 +5,11 @@ import { useContext } from 'react';
 import { DataContext } from '../Components/DataProvider';
 import { useNavigation } from '@react-navigation/native';
 import DatePicker from '../Components/DatePicker';
+import { StyleHelper } from '../Components/StyleHelper';
 
 export default function AddDiet() {
 
-  const [description, setDescription] = useState(null);
+  const [description, setDescription] = useState(''); // diet description
   const [date, setDate] = useState(null);
   const [showDatePicker, setShowDatePicker] = useState(false);
   const [calorieData, setCalorieData] = useState(''); //duration
@@ -16,19 +17,42 @@ export default function AddDiet() {
   const { addNewDiet } = useContext(DataContext);
   const navigation = useNavigation();
 
+  function checkInputs() {
+    if (description.trim() === ''
+      || calorieData.trim() === ''
+      || formattedDate === '') {
+      return false;
+    }
+    if (isNaN(calorieData)) {
+      return false;
+    }
+    if (parseInt(calorieData) < 0) {
+      return false;
+    }
+    return true;
+  }
+
   function handleSave() {
-    let newDiet = { description: description, date: formattedDate, calories: calorieData };
-    addNewDiet(newDiet);
+    if (checkInputs()) {
+      let newDiet = { description: description, date: formattedDate, calories: calorieData };
+      addNewDiet(newDiet);
+      navigation.navigate('Diet');
+    } else {
+      Alert.alert('Invalid input', 'Please check your input values');
+    }
+  }
+
+  function handleCancel() {
     navigation.navigate('Diet');
   }
 
   return (
-    <View>
-      <Text>Description *</Text>
+    <View style={StyleHelper.container}>
+      <Text style={StyleHelper.text}>Description *</Text>
       <TextInput style={{ borderWidth: 2, borderColor: 'black', height: 50 }}
         value={description} onChangeText={(newDescription) => setDescription(newDescription)} />
 
-      <Text>Calories *</Text>
+      <Text style={StyleHelper.text}>Calories *</Text>
       <TextInput style={{ borderWidth: 2, borderColor: 'black', height: 50 }}
         value={calorieData} onChangeText={(newCalories) => setCalorieData(newCalories)} />
 
@@ -36,7 +60,8 @@ export default function AddDiet() {
         formattedDate={formattedDate} setFormattedDate={setFormattedDate}
         showDatePicker={showDatePicker} setShowDatePicker={setShowDatePicker} />
 
-        <Button title='Save' onPress={() => { handleSave() }} />
+      <Button title='Save' onPress={() => { handleSave() }} />
+      <Button title='Cancel' onPress={() => { handleCancel() }} />
     </View>
   )
 }

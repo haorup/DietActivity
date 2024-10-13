@@ -2,11 +2,11 @@ import { StyleSheet, Text, TextInput, View, Button, Alert } from 'react-native';
 import React from 'react';
 import Dropdown from '../Components/Dropdown';
 import { useState } from 'react';
-
 import { DataContext } from '../Components/DataProvider';
 import { useContext } from 'react';
 import { useNavigation } from '@react-navigation/native';
 import DatePicker from '../Components/DatePicker';
+import { StyleHelper } from '../Components/StyleHelper';
 
 
 export default function AddActivity() {
@@ -32,25 +32,28 @@ export default function AddActivity() {
     if (isNaN(durationData)) {
       return false;
     }
+    if (parseInt(durationData) < 0) {
+      return false;
+    }
     return true;
   }
 
   function handleSave() {
     if (checkInputs()) {
-    let newActivity = { activity: value, date: formattedDate, duration: durationData };
-    addNewActivity(newActivity);
-    navigation.navigate('Activity');
-  } else {
-    Alert.alert('Invalid input','Please check your input values');
-  }
+      let newActivity = { activity: value, date: formattedDate, duration: durationData };
+      addNewActivity(newActivity);
+      navigation.navigate('Activity');
+    } else {
+      Alert.alert('Invalid input', 'Please check your input values');
+    }
   }
 
   return (
-    <View>
+    <View style={StyleHelper.container}>
 
       <Dropdown passedValue={value} setPassedValue={setValue} />
 
-      <Text>Duration (min)*</Text>
+      <Text style={StyleHelper.text}>Duration (min)*</Text>
       <TextInput style={{ borderWidth: 2, borderColor: 'black', height: 50 }}
         value={durationData} onChangeText={(newDuration) => setDurationData(newDuration)} />
 
