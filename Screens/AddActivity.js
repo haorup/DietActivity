@@ -17,11 +17,24 @@ export default function AddActivity() {
     const [date, setDate] = useState(null);
     const [showDatePicker, setShowDatePicker] = useState(false);
     const options = {weekday: 'short', year: 'numeric', month: 'short', day: 'numeric'};
+    const [formattedDate, setFormattedDate] = useState('');
 
     function handleDatePicker() {
-      setDate(new Date());
-      setShowDatePicker(!showDatePicker);
+      const currentDate = new Date();
+      setDate(currentDate);
+      setFormattedDate(currentDate.toLocaleDateString('en-US', options).replace(/,/g, ''));
+      setShowDatePicker((prev) => !prev);
     }
+
+    function handleDateChange( e, selectedDate) {
+      if (e.type ==='set') {
+      setDate(selectedDate);
+      setShowDatePicker(false);
+      setFormattedDate(selectedDate.toLocaleDateString('en-US', options).replace(/,/g, ''));
+    } else {
+      setShowDatePicker(false);
+    }
+  }
 
   return (
     <View>
@@ -38,12 +51,12 @@ export default function AddActivity() {
       <Text>Date *</Text>
       <TextInput style={{borderWidth: 2, borderColor: 'black', height: 50}}
       onPressIn={handleDatePicker}
-      value={date && date.toLocaleDateString('en-US', options). replace(/,/g, '')}/>
+      value={formattedDate}/>
       {showDatePicker && <DateTimePicker
           value={new Date()}
           mode='date'
-          display="inline"/>}
-
+          display="inline"
+          onChange={handleDateChange}/>}
     </View>
   )
 }
