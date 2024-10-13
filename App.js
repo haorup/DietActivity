@@ -8,7 +8,7 @@ import Settings from './Screens/Setting';
 import AddActivity from './Screens/AddActivity';
 import AddDiet from './Screens/AddDiet';
 import MaterialCommunityIcons from '@expo/vector-icons/MaterialCommunityIcons';
-import StyleHelper from './Components/StyleHelper';
+import {StyleHelper, ColorHelper } from './Components/StyleHelper';
 import { DataProvider } from './Components/DataProvider';
 
 
@@ -29,8 +29,8 @@ function TabNavigator() {
         }
         return <MaterialCommunityIcons name={iconName} size={24} color={color} />;
       },
-      tabBarActiveTintColor: StyleHelper.activeTabColor,
-      tabBarInactiveTintColor: StyleHelper.inactiveTabColor,
+      tabBarActiveTintColor: ColorHelper.activeTabColor,
+      tabBarInactiveTintColor: ColorHelper.inactiveTabColor,
     })}>
       <Tab.Screen name="Activity" component={Activity} />
       <Tab.Screen name="Diet" component={Diet} />
@@ -52,12 +52,3 @@ export default function App() {
     </DataProvider>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});

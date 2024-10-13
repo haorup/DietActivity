@@ -1,14 +1,15 @@
-import { StyleSheet, Text, View, Button } from 'react-native';
+import { View, Button } from 'react-native';
 import React from 'react';
-import {useEffect} from 'react';
-import {DataContext, DataProvider} from '../Components/DataProvider';
+import { useEffect } from 'react';
+import { DataContext, DataProvider } from '../Components/DataProvider';
 import { useContext } from 'react';
 import ItemList from '../Components/ItemList';
+import { StyleHelper } from '../Components/StyleHelper';
 
 
-export default function Activity({navigation}) {
+export default function Activity({ navigation }) {
 
-  const {state} = useContext(DataContext);
+  const { state } = useContext(DataContext);
 
   function handleAddButton() {
     navigation.push('AddActivity');
@@ -26,12 +27,10 @@ export default function Activity({navigation}) {
   });
 
   return (
-    <View>
+    <View style={StyleHelper.container}>
       <DataProvider>
-      <ItemList dataArr={state.activity} />
+        <ItemList dataArr={state.activity} />
       </DataProvider>
     </View>
   )
 }
-
-const styles = StyleSheet.create({})
