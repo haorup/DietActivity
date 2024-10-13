@@ -10,6 +10,7 @@ import AddDiet from './Screens/AddDiet';
 import MaterialCommunityIcons from '@expo/vector-icons/MaterialCommunityIcons';
 import StyleHelper from './Components/StyleHelper';
 
+
 const Stack = createNativeStackNavigator();
 const Tab = createBottomTabNavigator();
 
@@ -25,7 +26,7 @@ function TabNavigator() {
         } else if (route.name === 'Diet') {
           iconName = 'food';
         }
-        return <MaterialCommunityIcons name={iconName} size={24} color={color}/>;
+        return <MaterialCommunityIcons name={iconName} size={24} color={color} />;
       },
       tabBarActiveTintColor: StyleHelper.activeTabColor,
       tabBarInactiveTintColor: StyleHelper.inactiveTabColor,
@@ -40,13 +41,12 @@ function TabNavigator() {
 export default function App() {
   return (
     <NavigationContainer>
-      <Stack.Navigator>
-        <Stack.Screen name="TabNavigator" component={TabNavigator} options={{ headerShown: false }}/>
-        <Stack.Screen name='AddActivity' component={AddActivity} options={{headerBackTitle: 'Back'}}/>
-        <Stack.Screen name='AddDiet' component={AddDiet} options={{headerBackTitle: 'Back'}}/>
-      </Stack.Navigator>
+    <Stack.Navigator>
+          <Stack.Screen name="TabNavigator" component={TabNavigator} options={{ headerShown: false }} />
+          <Stack.Screen name='AddActivity' component={AddActivity} options={{ headerBackTitle: 'Back' }} />
+          <Stack.Screen name='AddDiet' component={AddDiet} options={{ headerBackTitle: 'Back' }} />
+    </Stack.Navigator>
     </NavigationContainer>
-
   );
 }
 
