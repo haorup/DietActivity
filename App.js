@@ -9,6 +9,7 @@ import AddActivity from './Screens/AddActivity';
 import AddDiet from './Screens/AddDiet';
 import MaterialCommunityIcons from '@expo/vector-icons/MaterialCommunityIcons';
 import StyleHelper from './Components/StyleHelper';
+import { DataProvider } from './Components/DataProvider';
 
 
 const Stack = createNativeStackNavigator();
@@ -40,6 +41,7 @@ function TabNavigator() {
 
 export default function App() {
   return (
+    <DataProvider>
     <NavigationContainer>
     <Stack.Navigator>
           <Stack.Screen name="TabNavigator" component={TabNavigator} options={{ headerShown: false }} />
@@ -47,6 +49,7 @@ export default function App() {
           <Stack.Screen name='AddDiet' component={AddDiet} options={{ headerBackTitle: 'Back' }} />
     </Stack.Navigator>
     </NavigationContainer>
+    </DataProvider>
   );
 }
 
