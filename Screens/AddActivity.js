@@ -1,4 +1,4 @@
-import { StyleSheet, Text, TextInput, View, Button } from 'react-native';
+import { StyleSheet, Text, TextInput, View, Button, Alert } from 'react-native';
 import React from 'react';
 import Dropdown from '../Components/Dropdown';
 import { useState } from 'react';
@@ -19,12 +19,30 @@ export default function AddActivity() {
   const { addNewActivity } = useContext(DataContext);
   const navigation = useNavigation();
 
+  function handleCancel() {
+    navigation.navigate('Activity');
+  }
 
+  function checkInputs() {
+    if (value === null
+      || durationData.trim() === ''
+      || formattedDate === '') {
+      return false;
+    }
+    if (isNaN(durationData)) {
+      return false;
+    }
+    return true;
+  }
 
   function handleSave() {
+    if (checkInputs()) {
     let newActivity = { activity: value, date: formattedDate, duration: durationData };
     addNewActivity(newActivity);
     navigation.navigate('Activity');
+  } else {
+    Alert.alert('Invalid input','Please check your input values');
+  }
   }
 
   return (
@@ -41,6 +59,7 @@ export default function AddActivity() {
         showDatePicker={showDatePicker} setShowDatePicker={setShowDatePicker} />
 
       <Button title='Save' onPress={() => { handleSave() }} />
+      <Button title='Cancel' onPress={() => { handleCancel() }} />
     </View>
   )
 }
