@@ -16,6 +16,8 @@ export default function Dropdown({passedValue, setPassedValue}) {
     <View style={{ zIndex: open ? 1000 : 0 }}>
         <Text style={StyleHelper.text}>Activity *</Text>
         <DropDownPicker
+        style={StyleHelper.dropDown}
+        textStyle={{ fontSize: 15 }}
           placeholder="Select An Activity"
           open={open}
           value={passedValue}

@@ -1,4 +1,4 @@
-import { StyleSheet, Text, View, TextInput } from 'react-native'
+import { StyleSheet, Text, View, TextInput, Platform } from 'react-native'
 import React from 'react'
 import DateTimePicker from '@react-native-community/datetimepicker';
 import { StyleHelper } from './StyleHelper';
@@ -28,13 +28,13 @@ export default function DatePicker({ date, setDate,
     return (
         <View>
             <Text style={StyleHelper.text}>Date *</Text>
-            <TextInput style={{ borderWidth: 2, borderColor: 'black', height: 50 }}
+            <TextInput style={[StyleHelper.input, { marginBottom: 0 }]}
                 onPressIn={handleDatePicker}
                 value={formattedDate} />
             {showDatePicker && <DateTimePicker
                 value={new Date()}
                 mode='date'
-                display="inline"
+                display={Platform.OS === 'ios' ? 'inline' : 'default'}
                 onChange={handleDateChange} />}
         </View>
     )

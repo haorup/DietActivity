@@ -1,8 +1,14 @@
-import { StyleSheet } from 'react-native';
+import { StyleSheet, TextInput } from 'react-native';
 
 export const ColorHelper = {
     activeTabColor: 'orange',
     inactiveTabColor: 'gray',
+    inputBackgroundColor: '#d3d3d3',
+    blackColor: 'black',
+    headerColor: 'rgba(3, 201, 169, 1)',
+    headerTintColor: 'white',
+    firstBackgroundColor: 'lightgreen',
+    secondBackgroundColor: '#FFB6C1',
 }
 
 const commonStyles = {
@@ -12,18 +18,32 @@ const commonStyles = {
         // alignItems: 'center',
         // justifyContent: 'center',
         padding: 30,
-        paddingTop: 60,
-        paddingBottom: 120,
+        paddingTop: 30,
+        paddingBottom: 100,
       },
 
     text: {
-        color: 'black',
+        color: ColorHelper.blackColor,
         fontSize: 15,
         fontWeight: 'bold',
-        paddingBottom: 3,
-
-
+        marginBottom: 5,
       },
+    input: {
+        borderWidth: 2,
+        borderColor: ColorHelper.blackColor,
+        height: 50,
+        borderRadius: 5,
+        marginBottom: 10,
+        backgroundColor: ColorHelper.inputBackgroundColor,
+        fontSize: 15,
+        padding: 10,
+    },
+    dropDown: {
+        backgroundColor: ColorHelper.inputBackgroundColor,
+        borderColor: ColorHelper.blackColor,
+        borderWidth: 2,
+        marginBottom: 10,
+    },
 }
 
 export const StyleHelper = StyleSheet.create(commonStyles);

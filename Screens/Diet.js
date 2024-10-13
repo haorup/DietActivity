@@ -4,6 +4,7 @@ import {useEffect} from 'react'
 import {DataContext, DataProvider} from '../Components/DataProvider'
 import { useContext } from 'react'
 import ItemList from '../Components/ItemList'
+import { StyleHelper } from '../Components/StyleHelper'
 
 
 export default function Diet({navigation}) {
@@ -25,7 +26,7 @@ export default function Diet({navigation}) {
   });
 
   return (
-    <View>
+    <View style={StyleHelper.container}>
       <DataProvider>
       <ItemList dataArr={state.diet} />
       </DataProvider>

@@ -49,11 +49,12 @@ export default function AddDiet() {
   return (
     <View style={StyleHelper.container}>
       <Text style={StyleHelper.text}>Description *</Text>
-      <TextInput style={{ borderWidth: 2, borderColor: 'black', height: 50 }}
+      <TextInput style={[StyleHelper.input, {height: 100}]}
+        multiline={true}
         value={description} onChangeText={(newDescription) => setDescription(newDescription)} />
 
       <Text style={StyleHelper.text}>Calories *</Text>
-      <TextInput style={{ borderWidth: 2, borderColor: 'black', height: 50 }}
+      <TextInput style={StyleHelper.input}
         value={calorieData} onChangeText={(newCalories) => setCalorieData(newCalories)} />
 
       <DatePicker date={date} setDate={setDate}

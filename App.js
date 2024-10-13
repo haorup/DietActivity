@@ -8,7 +8,7 @@ import Settings from './Screens/Setting';
 import AddActivity from './Screens/AddActivity';
 import AddDiet from './Screens/AddDiet';
 import MaterialCommunityIcons from '@expo/vector-icons/MaterialCommunityIcons';
-import {StyleHelper, ColorHelper } from './Components/StyleHelper';
+import { StyleHelper, ColorHelper } from './Components/StyleHelper';
 import { DataProvider } from './Components/DataProvider';
 
 
@@ -31,6 +31,8 @@ function TabNavigator() {
       },
       tabBarActiveTintColor: ColorHelper.activeTabColor,
       tabBarInactiveTintColor: ColorHelper.inactiveTabColor,
+      headerStyle: { backgroundColor: ColorHelper.headerColor },
+      headerTintColor: ColorHelper.headerTintColor,
     })}>
       <Tab.Screen name="Activity" component={Activity} />
       <Tab.Screen name="Diet" component={Diet} />
@@ -42,13 +44,18 @@ function TabNavigator() {
 export default function App() {
   return (
     <DataProvider>
-    <NavigationContainer>
-    <Stack.Navigator>
+      <NavigationContainer>
+        <Stack.Navigator screenOptions={
+          {
+            headerStyle: { backgroundColor: ColorHelper.headerColor },
+            headerTintColor: ColorHelper.headerTintColor,
+          }
+        }>
           <Stack.Screen name="TabNavigator" component={TabNavigator} options={{ headerShown: false }} />
           <Stack.Screen name='AddActivity' component={AddActivity} options={{ headerBackTitle: 'Back' }} />
           <Stack.Screen name='AddDiet' component={AddDiet} options={{ headerBackTitle: 'Back' }} />
-    </Stack.Navigator>
-    </NavigationContainer>
+        </Stack.Navigator>
+      </NavigationContainer>
     </DataProvider>
   );
 }

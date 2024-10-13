@@ -54,7 +54,7 @@ export default function AddActivity() {
       <Dropdown passedValue={value} setPassedValue={setValue} />
 
       <Text style={StyleHelper.text}>Duration (min)*</Text>
-      <TextInput style={{ borderWidth: 2, borderColor: 'black', height: 50 }}
+      <TextInput style={ StyleHelper.input}
         value={durationData} onChangeText={(newDuration) => setDurationData(newDuration)} />
 
       <DatePicker date={date} setDate={setDate}
