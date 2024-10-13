@@ -3,7 +3,7 @@ import React from 'react';
 import DropDownPicker from 'react-native-dropdown-picker';
 import { useState } from 'react';
 import DateTimePicker from '@react-native-community/datetimepicker';
-
+import DataProvider from '../Components/DataProvider';
 
 export default function AddActivity() {
   const [open, setOpen] = useState(false);
@@ -38,6 +38,7 @@ export default function AddActivity() {
 
   return (
     <View>
+      <DataProvider>
       <Text>Activity *</Text>
       <DropDownPicker
         placeholder="Select An Activity"
@@ -48,6 +49,8 @@ export default function AddActivity() {
         setValue={setValue}
         setItems={setActivities}
       />
+      <Text>Duration *</Text>
+      <TextInput style={{borderWidth: 2, borderColor: 'black', height: 50}}/>
       <Text>Date *</Text>
       <TextInput style={{borderWidth: 2, borderColor: 'black', height: 50}}
       onPressIn={handleDatePicker}
@@ -57,6 +60,7 @@ export default function AddActivity() {
           mode='date'
           display="inline"
           onChange={handleDateChange}/>}
+          </DataProvider>
     </View>
   )
 }
