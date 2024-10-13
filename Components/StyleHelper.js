@@ -2,7 +2,7 @@ import { StyleSheet, TextInput } from 'react-native';
 
 export const ColorHelper = {
     activeTabColor: 'orange',
-    inactiveTabColor: 'gray',
+    inactiveTabColor: 'black',
     inputBackgroundColor: '#d3d3d3',
     blackColor: 'black',
     headerColor: 'rgba(3, 201, 169, 1)',

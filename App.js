@@ -29,10 +29,12 @@ function TabNavigator() {
         }
         return <MaterialCommunityIcons name={iconName} size={24} color={color} />;
       },
+      tabBarStyle: { backgroundColor: ColorHelper.headerColor },
       tabBarActiveTintColor: ColorHelper.activeTabColor,
       tabBarInactiveTintColor: ColorHelper.inactiveTabColor,
       headerStyle: { backgroundColor: ColorHelper.headerColor },
       headerTintColor: ColorHelper.headerTintColor,
+
     })}>
       <Tab.Screen name="Activity" component={Activity} />
       <Tab.Screen name="Diet" component={Diet} />
