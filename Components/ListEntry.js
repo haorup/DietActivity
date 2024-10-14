@@ -4,14 +4,16 @@ import { StyleHelper, ColorHelper } from './StyleHelper';
 import MaterialCommunityIcons from '@expo/vector-icons/MaterialCommunityIcons';
 
 export default function ListEntry({ itemObj }) {
+    const activityLimit = 60;
+    const dietLimit = 800;
     const activityData = itemObj?.activity ?? null;
     const durationData = itemObj?.duration ? parseInt(itemObj.duration) : null;
     const caloriesData = itemObj?.calories ? parseInt(itemObj.calories) : null;
 
     let showActivityIcon = (activityData === 'Running'
-        || activityData === 'Weights') && (durationData > 60);
+        || activityData === 'Weights') && (durationData > activityLimit);
 
-    let showDietIcon = caloriesData > 800;
+    let showDietIcon = caloriesData > dietLimit;
 
     return (
         <View style={StyleHelper.boxStyle}>
