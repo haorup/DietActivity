@@ -14,7 +14,7 @@ export const ColorHelper = {
 const commonStyles = {
     container: {
         flex: 1,
-        backgroundColor: 'lightgreen',
+        // backgroundColor: 'lightgreen',
         padding: 20,
         paddingTop: 30,
         paddingBottom: 100,
