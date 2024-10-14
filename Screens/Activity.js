@@ -1,10 +1,10 @@
-import { View, Button } from 'react-native';
+import { Button } from 'react-native';
 import React from 'react';
 import { useEffect } from 'react';
 import { DataContext, DataProvider } from '../Components/DataProvider';
 import { useContext } from 'react';
 import ItemList from '../Components/ItemList';
-import { StyleHelper } from '../Components/StyleHelper';
+import  BackgroundContainer  from '../Components/BackgroundContainer';
 
 
 export default function Activity({ navigation }) {
@@ -27,10 +27,10 @@ export default function Activity({ navigation }) {
   });
 
   return (
-    <View style={StyleHelper.container}>
+    <BackgroundContainer>
       <DataProvider>
         <ItemList dataArr={state.activity} />
       </DataProvider>
-    </View>
+    </BackgroundContainer>
   )
 }

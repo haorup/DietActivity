@@ -7,6 +7,7 @@ import { useContext } from 'react';
 import { useNavigation } from '@react-navigation/native';
 import DatePicker from '../Components/DatePicker';
 import { StyleHelper } from '../Components/StyleHelper';
+import BackgroundContainer from '../Components/BackgroundContainer';
 
 
 export default function AddActivity() {
@@ -51,8 +52,7 @@ export default function AddActivity() {
   }
 
   return (
-    <View style={StyleHelper.container}>
-
+    <BackgroundContainer>
       <Dropdown passedValue={value} setPassedValue={setValue} />
 
       <Text style={StyleHelper.text}>Duration (min)*</Text>
@@ -69,6 +69,6 @@ export default function AddActivity() {
           <Button title='Save' onPress={() => { handleSave() }} />
         </View>
       </View>
-    </View>
+    </BackgroundContainer>
   )
 }

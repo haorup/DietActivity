@@ -6,6 +6,7 @@ import { DataContext } from '../Components/DataProvider';
 import { useNavigation } from '@react-navigation/native';
 import DatePicker from '../Components/DatePicker';
 import { StyleHelper } from '../Components/StyleHelper';
+import BackgroundContainer from '../Components/BackgroundContainer';
 
 export default function AddDiet() {
 
@@ -49,7 +50,7 @@ export default function AddDiet() {
   }
 
   return (
-    <View style={StyleHelper.container}>
+    <BackgroundContainer>
       <Text style={StyleHelper.text}>Description *</Text>
       <TextInput style={[StyleHelper.input, { height: 100 }]}
         multiline={true}
@@ -69,7 +70,7 @@ export default function AddDiet() {
           <Button title='Save' onPress={() => { handleSave() }} />
         </View>
       </View>
-    </View>
+    </BackgroundContainer>
   )
 }
 

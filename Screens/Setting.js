@@ -1,12 +1,12 @@
-import { StyleSheet, Text, View } from 'react-native'
+import { StyleSheet, Text, } from 'react-native'
 import React from 'react'
-import { StyleHelper } from '../Components/StyleHelper'
+import BackgroundContainer from '../Components/BackgroundContainer'
 
 export default function Setting() {
   return (
-    <View style={StyleHelper.container}>
+    <BackgroundContainer>
       <Text>Settingaaabbb</Text>
-    </View>
+    </BackgroundContainer>
   )
 }
 
