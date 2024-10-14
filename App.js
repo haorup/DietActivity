@@ -10,6 +10,7 @@ import AddDiet from './Screens/AddDiet';
 import MaterialCommunityIcons from '@expo/vector-icons/MaterialCommunityIcons';
 import { StyleHelper, ColorHelper } from './Components/StyleHelper';
 import { DataProvider } from './Components/DataProvider';
+import { ColorProvider } from './Components/ColorContext';
 
 
 const Stack = createNativeStackNavigator();
@@ -45,6 +46,7 @@ function TabNavigator() {
 
 export default function App() {
   return (
+    <ColorProvider>
     <DataProvider>
       <NavigationContainer>
         <Stack.Navigator screenOptions={
@@ -59,5 +61,6 @@ export default function App() {
         </Stack.Navigator>
       </NavigationContainer>
     </DataProvider>
+    </ColorProvider>
   );
 }
