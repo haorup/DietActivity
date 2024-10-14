@@ -23,6 +23,7 @@ export default function AddActivity() {
     navigation.navigate('Activity');
   }
 
+  // check if the inputs are valid
   function checkInputs() {
     if (value === null
       || durationData.trim() === ''
@@ -38,6 +39,7 @@ export default function AddActivity() {
     return true;
   }
 
+  // save the new activity data
   function handleSave() {
     if (checkInputs()) {
       let newActivity = { activity: value, date: formattedDate, duration: durationData };
@@ -63,8 +65,8 @@ export default function AddActivity() {
 
       <View style={{ flex: 1, justifyContent: 'center' }}>
         <View style={StyleHelper.buttonContainer}>
+        <Button title='Cancel' onPress={() => { handleCancel() }} />
           <Button title='Save' onPress={() => { handleSave() }} />
-          <Button title='Cancel' onPress={() => { handleCancel() }} />
         </View>
       </View>
     </View>

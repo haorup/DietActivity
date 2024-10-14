@@ -17,6 +17,7 @@ export default function AddDiet() {
   const { addNewDiet } = useContext(DataContext);
   const navigation = useNavigation();
 
+  // check if the inputs are valid
   function checkInputs() {
     if (description.trim() === ''
       || calorieData.trim() === ''
@@ -32,6 +33,7 @@ export default function AddDiet() {
     return true;
   }
 
+  // save the new diet data
   function handleSave() {
     if (checkInputs()) {
       let newDiet = { description: description, date: formattedDate, calories: calorieData };
@@ -60,10 +62,11 @@ export default function AddDiet() {
       <DatePicker date={date} setDate={setDate}
         formattedDate={formattedDate} setFormattedDate={setFormattedDate}
         showDatePicker={showDatePicker} setShowDatePicker={setShowDatePicker} />
+
       <View style={{ flex: 1, justifyContent: 'center' }}>
         <View style={StyleHelper.buttonContainer}>
-          <Button title='Save' onPress={() => { handleSave() }} />
           <Button title='Cancel' onPress={() => { handleCancel() }} />
+          <Button title='Save' onPress={() => { handleSave() }} />
         </View>
       </View>
     </View>
