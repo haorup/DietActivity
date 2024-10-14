@@ -18,10 +18,18 @@ export default function Setting() {
   }
   return (
     <BackgroundContainer>
-      <View>
+      <View style={styles.container}>
         <Button title='Toggle Background'
           onPress={() => handlePress()} />
       </View>
     </BackgroundContainer>
   )
 }
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+})
