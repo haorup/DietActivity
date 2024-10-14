@@ -37,9 +37,9 @@ export default function ListEntry({ itemObj }) {
                     style={StyleHelper.textEntry}>{itemObj.date}</Text>}
             </View>
 
-            <View style={[StyleHelper.calorieBox, { width: '15%' }]}>
+            <View style={[StyleHelper.calorieBox, { width: '25%' }]}>
                 {itemObj.duration && <Text
-                    style={StyleHelper.textEntry}>{itemObj.duration}</Text>}
+                    style={StyleHelper.textEntry}>{`${itemObj.duration} mins`}</Text>}
                 {itemObj.calories && <Text
                     style={StyleHelper.textEntry}>{itemObj.calories}</Text>}
             </View>
