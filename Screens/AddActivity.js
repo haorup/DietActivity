@@ -48,7 +48,7 @@ export default function AddActivity({ itemData = null }) {
       activity: value,
       date: formattedDate,
       duration: durationData,
-      showSpecial: ifShowSpecialIcon,
+      showSpecialActivity: ifShowSpecialIcon,
     };
     return newActivity;
   }

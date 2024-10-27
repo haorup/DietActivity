@@ -5,17 +5,8 @@ import MaterialCommunityIcons from '@expo/vector-icons/MaterialCommunityIcons';
 import { useNavigation } from '@react-navigation/native';
 
 export default function ListEntry({ itemObj }) {
-    const activityLimit = 60;
-    const dietLimit = 800;
-    const activityData = itemObj?.activity ?? null;
-    const durationData = itemObj?.duration ? parseInt(itemObj.duration) : null;
-    const caloriesData = itemObj?.calories ? parseInt(itemObj.calories) : null;
+
     const navigation = useNavigation();
-
-    let showActivityIcon = (activityData === 'Running'
-        || activityData === 'Weights') && (durationData > activityLimit);
-
-    let showDietIcon = caloriesData > dietLimit;
 
     function handleNavigation() {
         navigation.navigate('Edit', { itemData: itemObj });
@@ -29,14 +20,14 @@ export default function ListEntry({ itemObj }) {
                 {itemObj.activity && <Text
                     style={[StyleHelper.textEntry,
                     { color: 'white', fontSize: 15 }]}>{itemObj.activity}</Text>}
-                {showActivityIcon && <MaterialCommunityIcons
+                {itemObj.showSpecialActivity && <MaterialCommunityIcons
                     name='alert' size={24} color={ColorHelper.activeTabColor} />}
 
                 {/* diet data and reminder icon */}
                 {itemObj.description && <Text
                     style={[StyleHelper.textEntry,
                     { color: 'white', fontSize: 15 }]}>{itemObj.description}</Text>}
-                {showDietIcon && <MaterialCommunityIcons
+                {itemObj.showSpecialDiet && <MaterialCommunityIcons
                     name='alert' size={24} color={ColorHelper.activeTabColor} />}
             </View>
 

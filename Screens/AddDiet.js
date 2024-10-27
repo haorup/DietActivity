@@ -8,12 +8,13 @@ import BackgroundContainer from '../Components/BackgroundContainer';
 import { writeToDB } from '../Firebase/firebaseHelper';
 
 export default function AddDiet({ itemData = null }) {
-
+  const dietLimit = 800;
   const [description, setDescription] = useState(''); // diet description
   const [date, setDate] = useState(null);
   const [showDatePicker, setShowDatePicker] = useState(false);
   const [calorieData, setCalorieData] = useState(''); //duration
   const [formattedDate, setFormattedDate] = useState(''); //date string
+  const [showSpecialIcon, setShowSpecialIcon] = useState(false);
   const navigation = useNavigation();
 
   // check if the inputs are valid
@@ -32,12 +33,24 @@ export default function AddDiet({ itemData = null }) {
     return true;
   }
 
+  function makeNewDiet() {
+    let calorieNum = parseInt(calorieData);
+    let ifShowSpecialIcon = calorieNum > dietLimit;
+    let newDiet = {
+      description: description,
+      date: formattedDate,
+      calories: calorieData,
+      showSpecialDiet: ifShowSpecialIcon,
+    };
+    return newDiet;
+  }
+
   // save the new diet data
   function handleSave() {
     if (checkInputs()) {
-      let newDiet = { description: description, date: formattedDate, calories: calorieData };
-      itemData ? updateDB('diet', itemData.id, newDiet)
-        : writeToDB('diet', newDiet);
+      let newEntry = makeNewDiet();
+      itemData ? updateDB('diet', itemData.id, newEntry)
+        : writeToDB('diet', newEntry);
       navigation.navigate('Diet');
     } else {
       Alert.alert('Invalid input', 'Please check your input values');
