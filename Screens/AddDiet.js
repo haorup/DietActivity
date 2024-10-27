@@ -7,6 +7,7 @@ import { useNavigation } from '@react-navigation/native';
 import DatePicker from '../Components/DatePicker';
 import { StyleHelper } from '../Components/StyleHelper';
 import BackgroundContainer from '../Components/BackgroundContainer';
+import { writeToDB } from '../Firebase/firebaseHelper';
 
 export default function AddDiet() {
 
@@ -38,6 +39,7 @@ export default function AddDiet() {
   function handleSave() {
     if (checkInputs()) {
       let newDiet = { description: description, date: formattedDate, calories: calorieData };
+      writeToDB('diet', newDiet);
       addNewDiet(newDiet);
       navigation.navigate('Diet');
     } else {
