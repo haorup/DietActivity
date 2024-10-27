@@ -18,7 +18,7 @@ export default function ListEntry({ itemObj }) {
     let showDietIcon = caloriesData > dietLimit;
 
     function handleNavigation() {
-        navigation.navigate('Edit', { itemObj });
+        navigation.navigate('Edit', { itemData: itemObj });
     }
 
     return (
