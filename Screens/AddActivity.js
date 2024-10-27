@@ -8,6 +8,7 @@ import { useNavigation } from '@react-navigation/native';
 import DatePicker from '../Components/DatePicker';
 import { StyleHelper } from '../Components/StyleHelper';
 import BackgroundContainer from '../Components/BackgroundContainer';
+import { writeToDB } from '../Firebase/firebaseHelper';
 
 
 export default function AddActivity() {
@@ -44,6 +45,7 @@ export default function AddActivity() {
   function handleSave() {
     if (checkInputs()) {
       let newActivity = { activity: value, date: formattedDate, duration: durationData };
+      writeToDB('activity', newActivity);
       addNewActivity(newActivity);
       navigation.navigate('Activity');
     } else {
