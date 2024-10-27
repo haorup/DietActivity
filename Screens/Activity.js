@@ -7,7 +7,9 @@ import ItemList from '../Components/ItemList';
 import  BackgroundContainer  from '../Components/BackgroundContainer';
 
 
+
 export default function Activity({ navigation }) {
+
 
   const { state } = useContext(DataContext);
 
