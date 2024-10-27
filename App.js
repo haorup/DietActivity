@@ -9,6 +9,7 @@ import AddDiet from './Screens/AddDiet';
 import MaterialCommunityIcons from '@expo/vector-icons/MaterialCommunityIcons';
 import { ColorHelper } from './Components/StyleHelper';
 import { ColorProvider } from './Components/ColorContext';
+import Edit from './Screens/Edit';
 
 
 const Stack = createNativeStackNavigator();
@@ -55,6 +56,7 @@ export default function App() {
           <Stack.Screen name="TabNavigator" component={TabNavigator} options={{ headerShown: false }} />
           <Stack.Screen name='AddActivity' component={AddActivity} options={{ headerBackTitle: 'Back' }} />
           <Stack.Screen name='AddDiet' component={AddDiet} options={{ headerBackTitle: 'Back' }} />
+          <Stack.Screen name='Edit' component={Edit} options={{ headerBackTitle: 'Back' }} />
         </Stack.Navigator>
       </NavigationContainer>
     </ColorProvider>

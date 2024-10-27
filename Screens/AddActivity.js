@@ -1,7 +1,7 @@
 import { Text, TextInput, View, Button, Alert } from 'react-native';
 import React from 'react';
 import Dropdown from '../Components/Dropdown';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useNavigation } from '@react-navigation/native';
 import DatePicker from '../Components/DatePicker';
 import { StyleHelper } from '../Components/StyleHelper';
@@ -9,7 +9,7 @@ import BackgroundContainer from '../Components/BackgroundContainer';
 import { writeToDB } from '../Firebase/firebaseHelper';
 
 
-export default function AddActivity() {
+export default function AddActivity({ itemData = null }) {
 
   const [value, setValue] = useState(null); //activity
   const [date, setDate] = useState(null);
@@ -48,6 +48,14 @@ export default function AddActivity() {
       Alert.alert('Invalid input', 'Please check your input values');
     }
   }
+
+  useEffect(() => {
+    if (itemData !== null) {
+      setValue(itemData.activity);
+      setDurationData(itemData.duration);
+      setFormattedDate(itemData.date);
+    }
+  }, [itemData]);
 
   return (
     <BackgroundContainer>

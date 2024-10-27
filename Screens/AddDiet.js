@@ -1,13 +1,13 @@
 import { StyleSheet, Text, View, TextInput, Button, Alert } from 'react-native'
 import React from 'react'
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useNavigation } from '@react-navigation/native';
 import DatePicker from '../Components/DatePicker';
 import { StyleHelper } from '../Components/StyleHelper';
 import BackgroundContainer from '../Components/BackgroundContainer';
 import { writeToDB } from '../Firebase/firebaseHelper';
 
-export default function AddDiet() {
+export default function AddDiet({ itemData = null }) {
 
   const [description, setDescription] = useState(''); // diet description
   const [date, setDate] = useState(null);
@@ -46,6 +46,14 @@ export default function AddDiet() {
   function handleCancel() {
     navigation.navigate('Diet');
   }
+
+  useEffect(() => {
+    if (itemData !== null) {
+      setDescription(itemData.description);
+      setCalorieData(itemData.calories);
+      setFormattedDate(itemData.date);
+    }
+  }, [itemData]);
 
   return (
     <BackgroundContainer>
