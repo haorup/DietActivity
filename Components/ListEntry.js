@@ -1,7 +1,8 @@
-import { StyleSheet, Text, View } from 'react-native';
+import { Pressable, Text, View } from 'react-native';
 import React from 'react';
 import { StyleHelper, ColorHelper } from './StyleHelper';
 import MaterialCommunityIcons from '@expo/vector-icons/MaterialCommunityIcons';
+import { useNavigation } from '@react-navigation/native';
 
 export default function ListEntry({ itemObj }) {
     const activityLimit = 60;
@@ -9,15 +10,20 @@ export default function ListEntry({ itemObj }) {
     const activityData = itemObj?.activity ?? null;
     const durationData = itemObj?.duration ? parseInt(itemObj.duration) : null;
     const caloriesData = itemObj?.calories ? parseInt(itemObj.calories) : null;
+    const navigation = useNavigation();
 
     let showActivityIcon = (activityData === 'Running'
         || activityData === 'Weights') && (durationData > activityLimit);
 
     let showDietIcon = caloriesData > dietLimit;
 
-    return (
-        <View style={StyleHelper.boxStyle}>
+    function handleNavigation() {
+        navigation.navigate('Edit', { itemObj });
+    }
 
+    return (
+        <Pressable onPress={handleNavigation}>
+        <View style={StyleHelper.boxStyle}>
             <View style={StyleHelper.activityBox}>
                 {/* activity data and reminder icon */}
                 {itemObj.activity && <Text
@@ -46,5 +52,6 @@ export default function ListEntry({ itemObj }) {
                     style={StyleHelper.textEntry}>{itemObj.calories}</Text>}
             </View>
         </View>
+        </Pressable>
     );
 }
