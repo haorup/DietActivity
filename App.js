@@ -1,4 +1,3 @@
-import { StyleSheet, Text, View } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
@@ -8,8 +7,7 @@ import Settings from './Screens/Setting';
 import AddActivity from './Screens/AddActivity';
 import AddDiet from './Screens/AddDiet';
 import MaterialCommunityIcons from '@expo/vector-icons/MaterialCommunityIcons';
-import { StyleHelper, ColorHelper } from './Components/StyleHelper';
-import { DataProvider } from './Components/DataProvider';
+import { ColorHelper } from './Components/StyleHelper';
 import { ColorProvider } from './Components/ColorContext';
 
 
@@ -47,7 +45,6 @@ function TabNavigator() {
 export default function App() {
   return (
     <ColorProvider>
-    <DataProvider>
       <NavigationContainer>
         <Stack.Navigator screenOptions={
           {
@@ -60,7 +57,6 @@ export default function App() {
           <Stack.Screen name='AddDiet' component={AddDiet} options={{ headerBackTitle: 'Back' }} />
         </Stack.Navigator>
       </NavigationContainer>
-    </DataProvider>
     </ColorProvider>
   );
 }

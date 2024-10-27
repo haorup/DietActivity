@@ -1,8 +1,6 @@
 import { StyleSheet, Text, View, TextInput, Button, Alert } from 'react-native'
 import React from 'react'
 import { useState } from 'react';
-import { useContext } from 'react';
-import { DataContext } from '../Components/DataProvider';
 import { useNavigation } from '@react-navigation/native';
 import DatePicker from '../Components/DatePicker';
 import { StyleHelper } from '../Components/StyleHelper';
@@ -16,7 +14,6 @@ export default function AddDiet() {
   const [showDatePicker, setShowDatePicker] = useState(false);
   const [calorieData, setCalorieData] = useState(''); //duration
   const [formattedDate, setFormattedDate] = useState(''); //date string
-  const { addNewDiet } = useContext(DataContext);
   const navigation = useNavigation();
 
   // check if the inputs are valid
@@ -40,7 +37,6 @@ export default function AddDiet() {
     if (checkInputs()) {
       let newDiet = { description: description, date: formattedDate, calories: calorieData };
       writeToDB('diet', newDiet);
-      addNewDiet(newDiet);
       navigation.navigate('Diet');
     } else {
       Alert.alert('Invalid input', 'Please check your input values');
