@@ -6,6 +6,7 @@ import DatePicker from '../Components/DatePicker';
 import { StyleHelper } from '../Components/StyleHelper';
 import BackgroundContainer from '../Components/BackgroundContainer';
 import { writeToDB } from '../Firebase/firebaseHelper';
+import Checkerbox from '../Components/Checkerbox';
 
 export default function AddDiet({ itemData = null }) {
   const dietLimit = 800;
@@ -66,6 +67,7 @@ export default function AddDiet({ itemData = null }) {
       setDescription(itemData.description);
       setCalorieData(itemData.calories);
       setFormattedDate(itemData.date);
+      setShowSpecialIcon(itemData.showSpecialDiet);
     }
   }, [itemData]);
 
@@ -84,7 +86,8 @@ export default function AddDiet({ itemData = null }) {
         formattedDate={formattedDate} setFormattedDate={setFormattedDate}
         showDatePicker={showDatePicker} setShowDatePicker={setShowDatePicker} />
 
-      <View style={{ flex: 1, justifyContent: 'center' }}>
+      <View style={{ flex: 1, justifyContent: 'flex-end', alignItems: 'center' }}>
+        {itemData && <Checkerbox ifChecked={showSpecialIcon} setIfChecked={setShowSpecialIcon} />}
         <View style={StyleHelper.buttonContainer}>
           <Button title='Cancel' onPress={() => { handleCancel() }} />
           <Button title='Save' onPress={() => { handleSave() }} />

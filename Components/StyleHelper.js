@@ -9,15 +9,15 @@ export const ColorHelper = {
     headerTintColor: 'white',
     firstBackgroundColor: 'lightgreen',
     secondBackgroundColor: '#FFB6C1',
+    checkedCheckboxColor: '#4630EB',
 }
 
 const commonStyles = {
     container: {
         flex: 1,
-        // backgroundColor: 'lightgreen',
         padding: 20,
         paddingTop: 30,
-        paddingBottom: 100,
+        paddingBottom: 50,
       },
 
     text: {
@@ -83,6 +83,11 @@ const commonStyles = {
         fontWeight: 'bold',
         paddingLeft: 5,
     },
+    checkboxSection: {
+        width: '100%',
+        flexDirection: 'row',
+        alignItems: 'center',
+    }
 }
 
 export const StyleHelper = StyleSheet.create(commonStyles);

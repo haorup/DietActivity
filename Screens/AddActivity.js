@@ -7,6 +7,7 @@ import DatePicker from '../Components/DatePicker';
 import { StyleHelper } from '../Components/StyleHelper';
 import BackgroundContainer from '../Components/BackgroundContainer';
 import { writeToDB, updateDB } from '../Firebase/firebaseHelper';
+import Checkerbox from '../Components/Checkerbox';
 
 
 export default function AddActivity({ itemData = null }) {
@@ -70,6 +71,7 @@ export default function AddActivity({ itemData = null }) {
       setValue(itemData.activity);
       setDurationData(itemData.duration);
       setFormattedDate(itemData.date);
+      setShowSpecialIcon(itemData.showSpecialActivity);
     }
   }, [itemData]);
 
@@ -85,7 +87,9 @@ export default function AddActivity({ itemData = null }) {
         formattedDate={formattedDate} setFormattedDate={setFormattedDate}
         showDatePicker={showDatePicker} setShowDatePicker={setShowDatePicker} />
 
-      <View style={{ flex: 1, justifyContent: 'center' }}>
+      {/* section of checkbox and save/cancel button */}
+      <View style={{ flex: 1, justifyContent: 'flex-end', alignItems: 'center' }}>
+        {itemData && <Checkerbox ifChecked={showSpecialIcon} setIfChecked={setShowSpecialIcon} />}
         <View style={StyleHelper.buttonContainer}>
           <Button title='Cancel' onPress={() => { handleCancel() }} />
           <Button title='Save' onPress={() => { handleSave() }} />
