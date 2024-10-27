@@ -36,7 +36,8 @@ export default function AddDiet({ itemData = null }) {
   function handleSave() {
     if (checkInputs()) {
       let newDiet = { description: description, date: formattedDate, calories: calorieData };
-      writeToDB('diet', newDiet);
+      itemData ? updateDB('diet', itemData.id, newDiet)
+        : writeToDB('diet', newDiet);
       navigation.navigate('Diet');
     } else {
       Alert.alert('Invalid input', 'Please check your input values');
