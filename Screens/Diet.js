@@ -29,9 +29,12 @@ export default function Diet({navigation}) {
   useEffect(() => {
     const q = query(collection(database, 'diet'));
     const unsubscribe = onSnapshot(q, (snapshot) => {
-      const dataArrFromDB = [];
+      let dataArrFromDB = [];
+      let newEntry = {};
       snapshot.forEach((doc) => {
-        dataArrFromDB.push(doc.data());
+        newEntry = doc.data();
+        newEntry = {...newEntry, id: doc.id};
+        dataArrFromDB.push(newEntry);
       });
       setDietArr(dataArrFromDB);
     });

@@ -29,9 +29,12 @@ export default function Activity({ navigation }) {
   useEffect(() => {
     const q = query(collection(database, 'activity'));
     const unsubscribe = onSnapshot(q, (snapshot) => {
-      const dataArrFromDB = [];
+      let dataArrFromDB = [];
+      let newEntry = {};
       snapshot.forEach((doc) => {
-        dataArrFromDB.push(doc.data());
+        newEntry = doc.data();
+        newEntry = { ...newEntry, id: doc.id };
+        dataArrFromDB.push(newEntry);
       });
       setActivityArr(dataArrFromDB);
     });
@@ -40,9 +43,7 @@ export default function Activity({ navigation }) {
 
   return (
     <BackgroundContainer>
-
         <ItemList dataArr={activityArr} />
-
     </BackgroundContainer>
   )
 }
