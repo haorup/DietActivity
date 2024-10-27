@@ -10,12 +10,13 @@ import { writeToDB, updateDB } from '../Firebase/firebaseHelper';
 
 
 export default function AddActivity({ itemData = null }) {
-
+  const activityLimit = 60;
   const [value, setValue] = useState(null); //activity
   const [date, setDate] = useState(null);
   const [showDatePicker, setShowDatePicker] = useState(false);
   const [durationData, setDurationData] = useState(''); //duration
   const [formattedDate, setFormattedDate] = useState(''); //date string
+  const [showSpecialIcon, setShowSpecialIcon] = useState(false);
   const navigation = useNavigation();
 
   function handleCancel() {
@@ -38,12 +39,26 @@ export default function AddActivity({ itemData = null }) {
     return true;
   }
 
+  // create a new activity object
+  function makeNewActivity() {
+    let durationNum = parseInt(durationData);
+    let ifShowSpecialIcon = (value === 'Running'
+      || value === 'Weights') && (durationNum > activityLimit);
+    let newActivity = {
+      activity: value,
+      date: formattedDate,
+      duration: durationData,
+      showSpecial: ifShowSpecialIcon,
+    };
+    return newActivity;
+  }
+
   // save the new activity data
   function handleSave() {
     if (checkInputs()) {
-      let newActivity = { activity: value, date: formattedDate, duration: durationData };
-      itemData ? updateDB('activity', itemData.id, newActivity)
-      : writeToDB('activity', newActivity);
+      let newEntry = makeNewActivity();
+      itemData ? updateDB('activity', itemData.id, newEntry)
+        : writeToDB('activity', newEntry);
       navigation.navigate('Activity');
     } else {
       Alert.alert('Invalid input', 'Please check your input values');
@@ -72,7 +87,7 @@ export default function AddActivity({ itemData = null }) {
 
       <View style={{ flex: 1, justifyContent: 'center' }}>
         <View style={StyleHelper.buttonContainer}>
-        <Button title='Cancel' onPress={() => { handleCancel() }} />
+          <Button title='Cancel' onPress={() => { handleCancel() }} />
           <Button title='Save' onPress={() => { handleSave() }} />
         </View>
       </View>
