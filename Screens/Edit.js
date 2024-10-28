@@ -1,9 +1,11 @@
-import { StyleSheet, Button } from 'react-native'
+import { StyleSheet } from 'react-native'
 import React, { useEffect } from 'react'
 import BackgroundContainer from '../Components/BackgroundContainer'
 import AddActivity from './AddActivity'
 import AddDiet from './AddDiet'
 import { deleteDB } from '../Firebase/firebaseHelper'
+import PressButton from '../Components/PressButton'
+import { MaterialCommunityIcons } from '@expo/vector-icons'
 
 
 export default function Edit({navigation, route}) {
@@ -17,10 +19,10 @@ export default function Edit({navigation, route}) {
   useEffect(() => {
     navigation.setOptions({
       headerRight : () => (
-        <Button
-          title="delete"
-          onPress={handleDelete}>
-        </Button>
+        <PressButton passedOnPress={handleDelete}
+        passedStyle={styles.pressedTrash}>
+          <MaterialCommunityIcons name='trash-can' size={28} color='white' />
+        </PressButton>
       ),
     });
   }
@@ -35,4 +37,9 @@ export default function Edit({navigation, route}) {
   )
 }
 
-const styles = StyleSheet.create({})
+const styles = StyleSheet.create({
+  pressedTrash: {
+    color: 'red',
+    backgroundColor: 'red',
+  }
+})
