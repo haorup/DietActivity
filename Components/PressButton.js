@@ -1,6 +1,6 @@
 import { View, Pressable } from 'react-native'
 import React from 'react'
-import { StyleHelper } from './StyleHelper'
+import { StyleHelper, ColorHelper } from './StyleHelper'
 
 export default function PressButton({ children,
     passedStyle,
@@ -18,7 +18,7 @@ export default function PressButton({ children,
                     ]
                 }}
                     onPress={passedOnPress}
-                    android_ripple={{ color: 'green', radius: 25 }}>
+                    android_ripple={{ color: ColorHelper.activeTabColor, radius: 25 }}>
                     {children}
                 </Pressable>
             </View>
