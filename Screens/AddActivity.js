@@ -19,6 +19,7 @@ export default function AddActivity({ itemData = null }) {
   const [durationData, setDurationData] = useState(''); //duration
   const [formattedDate, setFormattedDate] = useState(''); //date string
   const [showSpecialIcon, setShowSpecialIcon] = useState(false);
+  const [isSpecial, setIsSpecial] = useState(false);
   const navigation = useNavigation();
 
   function handleCancel() {
@@ -55,6 +56,12 @@ export default function AddActivity({ itemData = null }) {
     return newActivity;
   }
 
+  // handle special entry
+  function handleSpecial() {
+    setIsSpecial((prev) => !prev);
+    setShowSpecialIcon((prev) => !prev);
+  }
+
   // save the new activity data
   function handleSave() {
     if (checkInputs()) {
@@ -66,7 +73,7 @@ export default function AddActivity({ itemData = null }) {
         Alert.alert('Important', 'Are you sure you want to save these changes?', [
           {
             text: 'Yes', onPress: () => {
-              newEntry.showSpecialActivity = showSpecialIcon; // update the special icon
+              isSpecial && (newEntry.showSpecialActivity = !isSpecial);
               updateDB('activity', itemData.id, newEntry);
               navigation.navigate('Activity');
             }
@@ -109,8 +116,8 @@ export default function AddActivity({ itemData = null }) {
         alignItems: 'center'
       }}>
         {itemData && itemData.showSpecialActivity &&
-          <Checkerbox ifChecked={showSpecialIcon}
-            setIfChecked={setShowSpecialIcon} />}
+          <Checkerbox ifChecked={!showSpecialIcon}
+            setIfChecked={handleSpecial} />}
         <View style={StyleHelper.buttonContainer}>
           <PressButton passedOnPress={handleCancel}
             componentStyle={StyleHelper.cancelButton}>

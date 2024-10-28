@@ -17,7 +17,8 @@ export default function PressButton({ children,
                         pressed && passedStyle,
                     ]
                 }}
-                    onPress={passedOnPress}>
+                    onPress={passedOnPress}
+                    android_ripple={{ color: 'green', radius: 25 }}>
                     {children}
                 </Pressable>
             </View>

@@ -20,8 +20,11 @@ export default function Setting() {
     <BackgroundContainer>
       <View style={styles.container}>
         <PressButton passedOnPress={handlePress}
-        componentStyle={styles.toggleButton}>
-          <Text style={[StyleHelper.text, {color: ColorHelper.headerTintColor, marginBottom: 0}]}>Toggle Background Color</Text>
+        componentStyle={styles.toggleButton}
+        passedStyle={styles.pressedtoggleButton}>
+          <Text style={[StyleHelper.text,
+            {color: ColorHelper.headerTintColor,
+            marginBottom: 0}]}>Toggle Background Color</Text>
         </PressButton>
       </View>
     </BackgroundContainer>
@@ -39,5 +42,9 @@ const styles = StyleSheet.create({
     padding: 10,
     borderRadius: 5,
     alignItems: 'center',
-  }
+  },
+  pressedtoggleButton: {
+    opacity: 0.8,
+    backgroundColor: ColorHelper.saveButtonColor,
+  },
 })

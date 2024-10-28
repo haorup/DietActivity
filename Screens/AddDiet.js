@@ -17,6 +17,7 @@ export default function AddDiet({ itemData = null }) {
   const [calorieData, setCalorieData] = useState(''); //duration
   const [formattedDate, setFormattedDate] = useState(''); //date string
   const [showSpecialIcon, setShowSpecialIcon] = useState(false);
+  const [isSpecial, setIsSpecial] = useState(false);
   const navigation = useNavigation();
 
   // check if the inputs are valid
@@ -47,6 +48,11 @@ export default function AddDiet({ itemData = null }) {
     return newDiet;
   }
 
+  function handleSpecial() {
+    setIsSpecial((prev)=>!prev);
+    setShowSpecialIcon((prev)=>!prev);
+  }
+
   // save the new diet data
   function handleSave() {
     if (checkInputs()) {
@@ -58,7 +64,7 @@ export default function AddDiet({ itemData = null }) {
         Alert.alert('Important', 'Are you sure you want to save these changes?', [
           {
             text: 'Yes', onPress: () => {
-              newEntry.showSpecialDiet = showSpecialIcon;
+              isSpecial && (newEntry.showSpecialDiet = !isSpecial);
               updateDB('diet', itemData.id, newEntry);
               navigation.navigate('Diet');
             }
@@ -108,8 +114,8 @@ export default function AddDiet({ itemData = null }) {
         alignItems: 'center'
       }}>
         {itemData && itemData.showSpecialDiet &&
-        <Checkerbox ifChecked={showSpecialIcon}
-          setIfChecked={setShowSpecialIcon} />}
+        <Checkerbox ifChecked={!showSpecialIcon}
+          setIfChecked={handleSpecial} />}
         <View style={StyleHelper.buttonContainer}>
           <PressButton passedOnPress={handleCancel}
             componentStyle={StyleHelper.cancelButton}>
