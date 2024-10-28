@@ -9,15 +9,17 @@ export const ColorHelper = {
     headerTintColor: 'white',
     firstBackgroundColor: 'lightgreen',
     secondBackgroundColor: '#FFB6C1',
+    checkedCheckboxColor: '#4630EB',
+    cancelButtonColor: 'red',
+    saveButtonColor: 'blue',
 }
 
 const commonStyles = {
     container: {
         flex: 1,
-        // backgroundColor: 'lightgreen',
         padding: 20,
         paddingTop: 30,
-        paddingBottom: 100,
+        paddingBottom: 50,
       },
 
     text: {
@@ -83,6 +85,35 @@ const commonStyles = {
         fontWeight: 'bold',
         paddingLeft: 5,
     },
+    checkboxSection: {
+        width: '100%',
+        flexDirection: 'row',
+        alignItems: 'center',
+    },
+    pressButtonDefaultStyle: {
+        padding: 5,
+        radius: 5,
+        opacity: 1,
+    },
+    defaultPressedSytle: {
+        opacity: 0.2,
+    },
+    cancelButton: {
+        width: 75,
+        backgroundColor: ColorHelper.cancelButtonColor,
+        padding: 10,
+        borderRadius: 5,
+        margin: 5,
+        alignItems: 'center',
+      },
+    saveButton: {
+        width: 75,
+        alignItems: 'center',
+        backgroundColor: ColorHelper.saveButtonColor,
+        padding: 10,
+        borderRadius: 5,
+        margin: 5,
+      },
 }
 
 export const StyleHelper = StyleSheet.create(commonStyles);

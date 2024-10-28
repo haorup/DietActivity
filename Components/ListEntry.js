@@ -1,36 +1,34 @@
-import { StyleSheet, Text, View } from 'react-native';
+import { Pressable, Text, View } from 'react-native';
 import React from 'react';
 import { StyleHelper, ColorHelper } from './StyleHelper';
 import MaterialCommunityIcons from '@expo/vector-icons/MaterialCommunityIcons';
+import { useNavigation } from '@react-navigation/native';
+import PressButton from './PressButton';
 
 export default function ListEntry({ itemObj }) {
-    const activityLimit = 60;
-    const dietLimit = 800;
-    const activityData = itemObj?.activity ?? null;
-    const durationData = itemObj?.duration ? parseInt(itemObj.duration) : null;
-    const caloriesData = itemObj?.calories ? parseInt(itemObj.calories) : null;
 
-    let showActivityIcon = (activityData === 'Running'
-        || activityData === 'Weights') && (durationData > activityLimit);
+    const navigation = useNavigation();
 
-    let showDietIcon = caloriesData > dietLimit;
+    function handleNavigation() {
+        navigation.navigate('Edit', { itemData: itemObj });
+    }
 
     return (
+        <PressButton passedOnPress={handleNavigation}>
         <View style={StyleHelper.boxStyle}>
-
             <View style={StyleHelper.activityBox}>
                 {/* activity data and reminder icon */}
                 {itemObj.activity && <Text
                     style={[StyleHelper.textEntry,
                     { color: 'white', fontSize: 15 }]}>{itemObj.activity}</Text>}
-                {showActivityIcon && <MaterialCommunityIcons
+                {itemObj.showSpecialActivity && <MaterialCommunityIcons
                     name='alert' size={24} color={ColorHelper.activeTabColor} />}
 
                 {/* diet data and reminder icon */}
                 {itemObj.description && <Text
                     style={[StyleHelper.textEntry,
                     { color: 'white', fontSize: 15 }]}>{itemObj.description}</Text>}
-                {showDietIcon && <MaterialCommunityIcons
+                {itemObj.showSpecialDiet && <MaterialCommunityIcons
                     name='alert' size={24} color={ColorHelper.activeTabColor} />}
             </View>
 
@@ -46,5 +44,6 @@ export default function ListEntry({ itemObj }) {
                     style={StyleHelper.textEntry}>{itemObj.calories}</Text>}
             </View>
         </View>
+        </PressButton>
     );
 }

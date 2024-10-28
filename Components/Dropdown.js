@@ -11,7 +11,9 @@ export default function Dropdown({passedValue, setPassedValue}) {
       { label: 'Running', value: 'Running' },
       { label: 'Swimming', value: 'Swimming' },
       { label: 'Weights', value: 'Weights' },
-      { label: 'Yoga', value: 'Yoga' },]);
+      { label: 'Yoga', value: 'Yoga' },
+      { label: 'Cycling', value: 'Cycling' },
+      { label: 'Hiking', value: 'Hiking' },]);
   return (
     <View style={{ zIndex: open ? 1000 : 0 }}>
         <Text style={StyleHelper.text}>Activity *</Text>

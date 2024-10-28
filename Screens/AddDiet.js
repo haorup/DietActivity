@@ -1,21 +1,23 @@
-import { StyleSheet, Text, View, TextInput, Button, Alert } from 'react-native'
+import { Text, View, TextInput, Alert } from 'react-native'
 import React from 'react'
-import { useState } from 'react';
-import { useContext } from 'react';
-import { DataContext } from '../Components/DataProvider';
+import { useState, useEffect } from 'react';
 import { useNavigation } from '@react-navigation/native';
 import DatePicker from '../Components/DatePicker';
-import { StyleHelper } from '../Components/StyleHelper';
+import { StyleHelper, ColorHelper } from '../Components/StyleHelper';
 import BackgroundContainer from '../Components/BackgroundContainer';
+import { writeToDB, updateDB } from '../Firebase/firebaseHelper';
+import Checkerbox from '../Components/Checkerbox';
+import PressButton from '../Components/PressButton';
 
-export default function AddDiet() {
-
+export default function AddDiet({ itemData = null }) {
+  const dietLimit = 800;
   const [description, setDescription] = useState(''); // diet description
   const [date, setDate] = useState(null);
   const [showDatePicker, setShowDatePicker] = useState(false);
   const [calorieData, setCalorieData] = useState(''); //duration
   const [formattedDate, setFormattedDate] = useState(''); //date string
-  const { addNewDiet } = useContext(DataContext);
+  const [showSpecialIcon, setShowSpecialIcon] = useState(false);
+  const [isSpecial, setIsSpecial] = useState(false);
   const navigation = useNavigation();
 
   // check if the inputs are valid
@@ -34,12 +36,42 @@ export default function AddDiet() {
     return true;
   }
 
+  function makeNewDiet() {
+    let calorieNum = parseInt(calorieData);
+    let ifShowSpecialIcon = calorieNum > dietLimit;
+    let newDiet = {
+      description: description,
+      date: formattedDate,
+      calories: calorieData,
+      showSpecialDiet: ifShowSpecialIcon,
+    };
+    return newDiet;
+  }
+
+  function handleSpecial() {
+    setIsSpecial((prev)=>!prev);
+    setShowSpecialIcon((prev)=>!prev);
+  }
+
   // save the new diet data
   function handleSave() {
     if (checkInputs()) {
-      let newDiet = { description: description, date: formattedDate, calories: calorieData };
-      addNewDiet(newDiet);
-      navigation.navigate('Diet');
+      let newEntry = makeNewDiet();
+      if (itemData === null) {
+        writeToDB('diet', newEntry);
+        navigation.navigate('Diet');
+      } else {
+        Alert.alert('Important', 'Are you sure you want to save these changes?', [
+          {
+            text: 'Yes', onPress: () => {
+              isSpecial && (newEntry.showSpecialDiet = !isSpecial);
+              updateDB('diet', itemData.id, newEntry);
+              navigation.navigate('Diet');
+            }
+          },
+          { text: 'No' }
+        ])
+      }
     } else {
       Alert.alert('Invalid input', 'Please check your input values');
     }
@@ -49,29 +81,60 @@ export default function AddDiet() {
     navigation.navigate('Diet');
   }
 
+  useEffect(() => {
+    if (itemData !== null) {
+      setDescription(itemData.description);
+      setCalorieData(itemData.calories);
+      setFormattedDate(itemData.date);
+      setShowSpecialIcon(itemData.showSpecialDiet);
+    }
+  }, [itemData]);
+
   return (
     <BackgroundContainer>
       <Text style={StyleHelper.text}>Description *</Text>
       <TextInput style={[StyleHelper.input, { height: 100 }]}
         multiline={true}
-        value={description} onChangeText={(newDescription) => setDescription(newDescription)} />
+        value={description} onChangeText={(newDescription) =>
+          setDescription(newDescription)} />
 
       <Text style={StyleHelper.text}>Calories *</Text>
       <TextInput style={StyleHelper.input}
-        value={calorieData} onChangeText={(newCalories) => setCalorieData(newCalories)} />
+        value={calorieData} onChangeText={(newCalories) =>
+          setCalorieData(newCalories)} />
 
       <DatePicker date={date} setDate={setDate}
-        formattedDate={formattedDate} setFormattedDate={setFormattedDate}
-        showDatePicker={showDatePicker} setShowDatePicker={setShowDatePicker} />
+        formattedDate={formattedDate}
+        setFormattedDate={setFormattedDate}
+        showDatePicker={showDatePicker}
+        setShowDatePicker={setShowDatePicker} />
 
-      <View style={{ flex: 1, justifyContent: 'center' }}>
+      <View style={{
+        flex: 1, justifyContent: 'flex-end',
+        alignItems: 'center'
+      }}>
+        {itemData && itemData.showSpecialDiet &&
+        <Checkerbox ifChecked={!showSpecialIcon}
+          setIfChecked={handleSpecial} />}
         <View style={StyleHelper.buttonContainer}>
-          <Button title='Cancel' onPress={() => { handleCancel() }} />
-          <Button title='Save' onPress={() => { handleSave() }} />
+          <PressButton passedOnPress={handleCancel}
+            componentStyle={StyleHelper.cancelButton}>
+            <Text style={[StyleHelper.text,
+            {
+              color: ColorHelper.headerTintColor,
+              marginBottom: 0
+            }]}>Cancel</Text>
+          </PressButton>
+          <PressButton passedOnPress={handleSave}
+            componentStyle={StyleHelper.saveButton}>
+            <Text style={[StyleHelper.text,
+            {
+              color: ColorHelper.headerTintColor,
+              marginBottom: 0
+            }]}>Save</Text>
+          </PressButton>
         </View>
       </View>
     </BackgroundContainer>
   )
 }
-
-const styles = StyleSheet.create({})

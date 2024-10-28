@@ -1,23 +1,25 @@
-import { Text, TextInput, View, Button, Alert } from 'react-native';
+import { Text, TextInput, View, Alert } from 'react-native';
 import React from 'react';
 import Dropdown from '../Components/Dropdown';
-import { useState } from 'react';
-import { DataContext } from '../Components/DataProvider';
-import { useContext } from 'react';
+import { useState, useEffect } from 'react';
 import { useNavigation } from '@react-navigation/native';
 import DatePicker from '../Components/DatePicker';
-import { StyleHelper } from '../Components/StyleHelper';
+import { StyleHelper, ColorHelper } from '../Components/StyleHelper';
 import BackgroundContainer from '../Components/BackgroundContainer';
+import { writeToDB, updateDB } from '../Firebase/firebaseHelper';
+import Checkerbox from '../Components/Checkerbox';
+import PressButton from '../Components/PressButton';
 
 
-export default function AddActivity() {
-
+export default function AddActivity({ itemData = null }) {
+  const activityLimit = 60;
   const [value, setValue] = useState(null); //activity
   const [date, setDate] = useState(null);
   const [showDatePicker, setShowDatePicker] = useState(false);
   const [durationData, setDurationData] = useState(''); //duration
   const [formattedDate, setFormattedDate] = useState(''); //date string
-  const { addNewActivity } = useContext(DataContext);
+  const [showSpecialIcon, setShowSpecialIcon] = useState(false);
+  const [isSpecial, setIsSpecial] = useState(false);
   const navigation = useNavigation();
 
   function handleCancel() {
@@ -40,16 +42,58 @@ export default function AddActivity() {
     return true;
   }
 
+  // create a new activity object
+  function makeNewActivity() {
+    let durationNum = parseInt(durationData);
+    let ifShowSpecialIcon = (value === 'Running'
+      || value === 'Weights') && (durationNum > activityLimit);
+    let newActivity = {
+      activity: value,
+      date: formattedDate,
+      duration: durationData,
+      showSpecialActivity: ifShowSpecialIcon,
+    };
+    return newActivity;
+  }
+
+  // handle special entry
+  function handleSpecial() {
+    setIsSpecial((prev) => !prev);
+    setShowSpecialIcon((prev) => !prev);
+  }
+
   // save the new activity data
   function handleSave() {
     if (checkInputs()) {
-      let newActivity = { activity: value, date: formattedDate, duration: durationData };
-      addNewActivity(newActivity);
-      navigation.navigate('Activity');
+      let newEntry = makeNewActivity();
+      if (itemData === null) {
+        writeToDB('activity', newEntry);
+        navigation.navigate('Activity');
+      } else {
+        Alert.alert('Important', 'Are you sure you want to save these changes?', [
+          {
+            text: 'Yes', onPress: () => {
+              isSpecial && (newEntry.showSpecialActivity = !isSpecial);
+              updateDB('activity', itemData.id, newEntry);
+              navigation.navigate('Activity');
+            }
+          },
+          { text: 'No' }
+        ]);
+      }
     } else {
       Alert.alert('Invalid input', 'Please check your input values');
     }
   }
+
+  useEffect(() => {
+    if (itemData !== null) {
+      setValue(itemData.activity);
+      setDurationData(itemData.duration);
+      setFormattedDate(itemData.date);
+      setShowSpecialIcon(itemData.showSpecialActivity);
+    }
+  }, [itemData]);
 
   return (
     <BackgroundContainer>
@@ -57,16 +101,40 @@ export default function AddActivity() {
 
       <Text style={StyleHelper.text}>Duration (min)*</Text>
       <TextInput style={StyleHelper.input}
-        value={durationData} onChangeText={(newDuration) => setDurationData(newDuration)} />
+        value={durationData} onChangeText={(newDuration) =>
+          setDurationData(newDuration)} />
 
       <DatePicker date={date} setDate={setDate}
-        formattedDate={formattedDate} setFormattedDate={setFormattedDate}
-        showDatePicker={showDatePicker} setShowDatePicker={setShowDatePicker} />
+        formattedDate={formattedDate}
+        setFormattedDate={setFormattedDate}
+        showDatePicker={showDatePicker}
+        setShowDatePicker={setShowDatePicker} />
 
-      <View style={{ flex: 1, justifyContent: 'center' }}>
+      {/* section of checkbox and save/cancel button */}
+      <View style={{
+        flex: 1, justifyContent: 'flex-end',
+        alignItems: 'center'
+      }}>
+        {itemData && itemData.showSpecialActivity &&
+          <Checkerbox ifChecked={!showSpecialIcon}
+            setIfChecked={handleSpecial} />}
         <View style={StyleHelper.buttonContainer}>
-        <Button title='Cancel' onPress={() => { handleCancel() }} />
-          <Button title='Save' onPress={() => { handleSave() }} />
+          <PressButton passedOnPress={handleCancel}
+            componentStyle={StyleHelper.cancelButton}>
+            <Text style={[StyleHelper.text,
+            {
+              color: ColorHelper.headerTintColor,
+              marginBottom: 0
+            }]}>Cancel</Text>
+          </PressButton>
+          <PressButton passedOnPress={handleSave}
+            componentStyle={StyleHelper.saveButton}>
+            <Text style={[StyleHelper.text,
+            {
+              color: ColorHelper.headerTintColor,
+              marginBottom: 0
+            }]}>Save</Text>
+          </PressButton>
         </View>
       </View>
     </BackgroundContainer>
