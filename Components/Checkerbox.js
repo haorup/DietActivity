@@ -1,7 +1,6 @@
 import { StyleSheet, Text, View } from 'react-native'
 import React from 'react'
 import Checkbox from 'expo-checkbox'
-import { useState } from 'react'
 import { ColorHelper, StyleHelper } from './StyleHelper'
 
 export default function Checkerbox({ ifChecked, setIfChecked }) {

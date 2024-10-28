@@ -87,7 +87,15 @@ const commonStyles = {
         width: '100%',
         flexDirection: 'row',
         alignItems: 'center',
-    }
+    },
+    pressButtonDefaultStyle: {
+        padding: 5,
+        radius: 5,
+    },
+    defaultPressedSytle: {
+        backgroundColor: 'purple',
+        opacity: 0.5,
+    },
 }
 
 export const StyleHelper = StyleSheet.create(commonStyles);

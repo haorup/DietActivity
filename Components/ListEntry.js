@@ -3,6 +3,7 @@ import React from 'react';
 import { StyleHelper, ColorHelper } from './StyleHelper';
 import MaterialCommunityIcons from '@expo/vector-icons/MaterialCommunityIcons';
 import { useNavigation } from '@react-navigation/native';
+import PressButton from './PressButton';
 
 export default function ListEntry({ itemObj }) {
 
@@ -13,7 +14,7 @@ export default function ListEntry({ itemObj }) {
     }
 
     return (
-        <Pressable onPress={handleNavigation}>
+        <PressButton passedOnPress={handleNavigation}>
         <View style={StyleHelper.boxStyle}>
             <View style={StyleHelper.activityBox}>
                 {/* activity data and reminder icon */}
@@ -43,6 +44,6 @@ export default function ListEntry({ itemObj }) {
                     style={StyleHelper.textEntry}>{itemObj.calories}</Text>}
             </View>
         </View>
-        </Pressable>
+        </PressButton>
     );
 }
