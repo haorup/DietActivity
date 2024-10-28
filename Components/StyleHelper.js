@@ -91,10 +91,11 @@ const commonStyles = {
     pressButtonDefaultStyle: {
         padding: 5,
         radius: 5,
+        opacity: 1,
     },
     defaultPressedSytle: {
-        backgroundColor: 'purple',
-        opacity: 0.5,
+        // backgroundColor: 'purple',
+        opacity: 0.2,
     },
 }
 
