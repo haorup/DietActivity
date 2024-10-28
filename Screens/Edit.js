@@ -5,14 +5,21 @@ import AddDiet from './AddDiet'
 import { deleteDB } from '../Firebase/firebaseHelper'
 import PressButton from '../Components/PressButton'
 import MaterialCommunityIcons from '@expo/vector-icons/MaterialCommunityIcons';
+import { Alert } from 'react-native';
 
 
 export default function Edit({navigation, route}) {
 
   function handleDelete() {
     let collectionName = route.params.itemData.activity ? 'activity' : 'diet';
-    deleteDB(collectionName, route.params.itemData.id);
-    navigation.navigate(route.params.itemData.activity ? 'Activity' : 'Diet');
+    Alert.alert('Delete', 'Are you sure you want to delete this entry?', [
+      {text: 'Yes', onPress: () => {
+        deleteDB(collectionName, route.params.itemData.id);
+        navigation.navigate(route.params.itemData.activity ? 'Activity' : 'Diet');
+      }},
+      {text: 'No'}
+    ]);
+
   }
 
   useEffect(() => {

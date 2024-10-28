@@ -83,23 +83,39 @@ export default function AddActivity({ itemData = null }) {
 
       <Text style={StyleHelper.text}>Duration (min)*</Text>
       <TextInput style={StyleHelper.input}
-        value={durationData} onChangeText={(newDuration) => setDurationData(newDuration)} />
+        value={durationData} onChangeText={(newDuration) =>
+          setDurationData(newDuration)} />
 
       <DatePicker date={date} setDate={setDate}
-        formattedDate={formattedDate} setFormattedDate={setFormattedDate}
-        showDatePicker={showDatePicker} setShowDatePicker={setShowDatePicker} />
+        formattedDate={formattedDate}
+        setFormattedDate={setFormattedDate}
+        showDatePicker={showDatePicker}
+        setShowDatePicker={setShowDatePicker} />
 
       {/* section of checkbox and save/cancel button */}
-      <View style={{ flex: 1, justifyContent: 'flex-end', alignItems: 'center' }}>
-        {itemData && <Checkerbox ifChecked={showSpecialIcon} setIfChecked={setShowSpecialIcon} />}
+      <View style={{
+        flex: 1, justifyContent: 'flex-end',
+        alignItems: 'center'
+      }}>
+        {itemData && itemData.showSpecialActivity &&
+          <Checkerbox ifChecked={showSpecialIcon}
+            setIfChecked={setShowSpecialIcon} />}
         <View style={StyleHelper.buttonContainer}>
           <PressButton passedOnPress={handleCancel}
-          componentStyle={StyleHelper.cancelButton}>
-            <Text style={[StyleHelper.text, {color: ColorHelper.headerTintColor, marginBottom: 0}]}>Cancel</Text>
+            componentStyle={StyleHelper.cancelButton}>
+            <Text style={[StyleHelper.text,
+            {
+              color: ColorHelper.headerTintColor,
+              marginBottom: 0
+            }]}>Cancel</Text>
           </PressButton>
           <PressButton passedOnPress={handleSave}
-          componentStyle={StyleHelper.saveButton}>
-            <Text style={[StyleHelper.text, {color: ColorHelper.headerTintColor, marginBottom: 0}]}>Save</Text>
+            componentStyle={StyleHelper.saveButton}>
+            <Text style={[StyleHelper.text,
+            {
+              color: ColorHelper.headerTintColor,
+              marginBottom: 0
+            }]}>Save</Text>
           </PressButton>
         </View>
       </View>

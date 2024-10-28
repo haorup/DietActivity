@@ -1,4 +1,4 @@
-import { StyleSheet, Text, View, TextInput, Alert } from 'react-native'
+import { Text, View, TextInput, Alert } from 'react-native'
 import React from 'react'
 import { useState, useEffect } from 'react';
 import { useNavigation } from '@react-navigation/native';
@@ -51,10 +51,20 @@ export default function AddDiet({ itemData = null }) {
   function handleSave() {
     if (checkInputs()) {
       let newEntry = makeNewDiet();
-      newEntry.showSpecialDiet = showSpecialIcon;
-      itemData ? updateDB('diet', itemData.id, newEntry)
-        : writeToDB('diet', newEntry);
-      navigation.navigate('Diet');
+      {
+        itemData === null ? writeToDB('diet', newEntry)
+        : Alert.alert('Important', 'Are you sure you want to save these changes?', [
+          {
+            text: 'Yes', onPress: () => {
+              newEntry.showSpecialDiet = showSpecialIcon;
+              updateDB('diet', itemData.id, newEntry);
+              navigation.navigate('Diet');
+            }
+          },
+          { text: 'No' }
+        ])
+      }
+
     } else {
       Alert.alert('Invalid input', 'Please check your input values');
     }
@@ -96,7 +106,8 @@ export default function AddDiet({ itemData = null }) {
         flex: 1, justifyContent: 'flex-end',
         alignItems: 'center'
       }}>
-        {itemData && <Checkerbox ifChecked={showSpecialIcon}
+        {itemData && itemData.showSpecialDiet &&
+        <Checkerbox ifChecked={showSpecialIcon}
           setIfChecked={setShowSpecialIcon} />}
         <View style={StyleHelper.buttonContainer}>
           <PressButton passedOnPress={handleCancel}
@@ -120,5 +131,3 @@ export default function AddDiet({ itemData = null }) {
     </BackgroundContainer>
   )
 }
-
-const styles = StyleSheet.create({})
