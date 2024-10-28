@@ -58,6 +58,7 @@ export default function AddActivity({ itemData = null }) {
   function handleSave() {
     if (checkInputs()) {
       let newEntry = makeNewActivity();
+      newEntry.showSpecialActivity = showSpecialIcon; // update the special icon
       itemData ? updateDB('activity', itemData.id, newEntry)
         : writeToDB('activity', newEntry);
       navigation.navigate('Activity');

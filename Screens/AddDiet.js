@@ -5,7 +5,7 @@ import { useNavigation } from '@react-navigation/native';
 import DatePicker from '../Components/DatePicker';
 import { StyleHelper } from '../Components/StyleHelper';
 import BackgroundContainer from '../Components/BackgroundContainer';
-import { writeToDB } from '../Firebase/firebaseHelper';
+import { writeToDB, updateDB } from '../Firebase/firebaseHelper';
 import Checkerbox from '../Components/Checkerbox';
 
 export default function AddDiet({ itemData = null }) {
@@ -50,6 +50,7 @@ export default function AddDiet({ itemData = null }) {
   function handleSave() {
     if (checkInputs()) {
       let newEntry = makeNewDiet();
+      newEntry.showSpecialDiet = showSpecialIcon;
       itemData ? updateDB('diet', itemData.id, newEntry)
         : writeToDB('diet', newEntry);
       navigation.navigate('Diet');
