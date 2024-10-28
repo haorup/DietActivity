@@ -51,9 +51,11 @@ export default function AddDiet({ itemData = null }) {
   function handleSave() {
     if (checkInputs()) {
       let newEntry = makeNewDiet();
-      {
-        itemData === null ? writeToDB('diet', newEntry)
-        : Alert.alert('Important', 'Are you sure you want to save these changes?', [
+      if (itemData === null) {
+        writeToDB('diet', newEntry);
+        navigation.navigate('Diet');
+      } else {
+        Alert.alert('Important', 'Are you sure you want to save these changes?', [
           {
             text: 'Yes', onPress: () => {
               newEntry.showSpecialDiet = showSpecialIcon;
@@ -64,7 +66,6 @@ export default function AddDiet({ itemData = null }) {
           { text: 'No' }
         ])
       }
-
     } else {
       Alert.alert('Invalid input', 'Please check your input values');
     }
