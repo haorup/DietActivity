@@ -1,12 +1,13 @@
-import { StyleSheet, Text, View, TextInput, Button, Alert } from 'react-native'
+import { StyleSheet, Text, View, TextInput, Alert } from 'react-native'
 import React from 'react'
 import { useState, useEffect } from 'react';
 import { useNavigation } from '@react-navigation/native';
 import DatePicker from '../Components/DatePicker';
-import { StyleHelper } from '../Components/StyleHelper';
+import { StyleHelper, ColorHelper } from '../Components/StyleHelper';
 import BackgroundContainer from '../Components/BackgroundContainer';
 import { writeToDB, updateDB } from '../Firebase/firebaseHelper';
 import Checkerbox from '../Components/Checkerbox';
+import PressButton from '../Components/PressButton';
 
 export default function AddDiet({ itemData = null }) {
   const dietLimit = 800;
@@ -77,21 +78,43 @@ export default function AddDiet({ itemData = null }) {
       <Text style={StyleHelper.text}>Description *</Text>
       <TextInput style={[StyleHelper.input, { height: 100 }]}
         multiline={true}
-        value={description} onChangeText={(newDescription) => setDescription(newDescription)} />
+        value={description} onChangeText={(newDescription) =>
+          setDescription(newDescription)} />
 
       <Text style={StyleHelper.text}>Calories *</Text>
       <TextInput style={StyleHelper.input}
-        value={calorieData} onChangeText={(newCalories) => setCalorieData(newCalories)} />
+        value={calorieData} onChangeText={(newCalories) =>
+          setCalorieData(newCalories)} />
 
       <DatePicker date={date} setDate={setDate}
-        formattedDate={formattedDate} setFormattedDate={setFormattedDate}
-        showDatePicker={showDatePicker} setShowDatePicker={setShowDatePicker} />
+        formattedDate={formattedDate}
+        setFormattedDate={setFormattedDate}
+        showDatePicker={showDatePicker}
+        setShowDatePicker={setShowDatePicker} />
 
-      <View style={{ flex: 1, justifyContent: 'flex-end', alignItems: 'center' }}>
-        {itemData && <Checkerbox ifChecked={showSpecialIcon} setIfChecked={setShowSpecialIcon} />}
+      <View style={{
+        flex: 1, justifyContent: 'flex-end',
+        alignItems: 'center'
+      }}>
+        {itemData && <Checkerbox ifChecked={showSpecialIcon}
+          setIfChecked={setShowSpecialIcon} />}
         <View style={StyleHelper.buttonContainer}>
-          <Button title='Cancel' onPress={() => { handleCancel() }} />
-          <Button title='Save' onPress={() => { handleSave() }} />
+          <PressButton passedOnPress={handleCancel}
+            componentStyle={StyleHelper.cancelButton}>
+            <Text style={[StyleHelper.text,
+            {
+              color: ColorHelper.headerTintColor,
+              marginBottom: 0
+            }]}>Cancel</Text>
+          </PressButton>
+          <PressButton passedOnPress={handleSave}
+            componentStyle={StyleHelper.saveButton}>
+            <Text style={[StyleHelper.text,
+            {
+              color: ColorHelper.headerTintColor,
+              marginBottom: 0
+            }]}>Save</Text>
+          </PressButton>
         </View>
       </View>
     </BackgroundContainer>

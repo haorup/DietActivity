@@ -22,8 +22,8 @@ export default function Activity({ navigation }) {
       headerRight: () => (
         <PressButton passedOnPress={handleAddButton}>
           <View style={{flexDirection: 'row'}}>
-          <MaterialCommunityIcons name='plus' size={28} color='white' />
-          <MaterialCommunityIcons name='run' size={28} color='white' />
+          <MaterialCommunityIcons name='plus' size={24} color='white' />
+          <MaterialCommunityIcons name='run' size={20} color='white' />
           </View>
         </PressButton>
 

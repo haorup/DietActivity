@@ -1,13 +1,14 @@
-import { Text, TextInput, View, Button, Alert } from 'react-native';
+import { Text, TextInput, View, Alert } from 'react-native';
 import React from 'react';
 import Dropdown from '../Components/Dropdown';
 import { useState, useEffect } from 'react';
 import { useNavigation } from '@react-navigation/native';
 import DatePicker from '../Components/DatePicker';
-import { StyleHelper } from '../Components/StyleHelper';
+import { StyleHelper, ColorHelper } from '../Components/StyleHelper';
 import BackgroundContainer from '../Components/BackgroundContainer';
 import { writeToDB, updateDB } from '../Firebase/firebaseHelper';
 import Checkerbox from '../Components/Checkerbox';
+import PressButton from '../Components/PressButton';
 
 
 export default function AddActivity({ itemData = null }) {
@@ -92,8 +93,14 @@ export default function AddActivity({ itemData = null }) {
       <View style={{ flex: 1, justifyContent: 'flex-end', alignItems: 'center' }}>
         {itemData && <Checkerbox ifChecked={showSpecialIcon} setIfChecked={setShowSpecialIcon} />}
         <View style={StyleHelper.buttonContainer}>
-          <Button title='Cancel' onPress={() => { handleCancel() }} />
-          <Button title='Save' onPress={() => { handleSave() }} />
+          <PressButton passedOnPress={handleCancel}
+          componentStyle={StyleHelper.cancelButton}>
+            <Text style={[StyleHelper.text, {color: ColorHelper.headerTintColor, marginBottom: 0}]}>Cancel</Text>
+          </PressButton>
+          <PressButton passedOnPress={handleSave}
+          componentStyle={StyleHelper.saveButton}>
+            <Text style={[StyleHelper.text, {color: ColorHelper.headerTintColor, marginBottom: 0}]}>Save</Text>
+          </PressButton>
         </View>
       </View>
     </BackgroundContainer>

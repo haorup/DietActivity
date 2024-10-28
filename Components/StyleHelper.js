@@ -10,6 +10,8 @@ export const ColorHelper = {
     firstBackgroundColor: 'lightgreen',
     secondBackgroundColor: '#FFB6C1',
     checkedCheckboxColor: '#4630EB',
+    cancelButtonColor: 'red',
+    saveButtonColor: 'blue',
 }
 
 const commonStyles = {
@@ -94,9 +96,24 @@ const commonStyles = {
         opacity: 1,
     },
     defaultPressedSytle: {
-        // backgroundColor: 'purple',
         opacity: 0.2,
     },
+    cancelButton: {
+        width: 75,
+        backgroundColor: ColorHelper.cancelButtonColor,
+        padding: 10,
+        borderRadius: 5,
+        margin: 5,
+        alignItems: 'center',
+      },
+    saveButton: {
+        width: 75,
+        alignItems: 'center',
+        backgroundColor: ColorHelper.saveButtonColor,
+        padding: 10,
+        borderRadius: 5,
+        margin: 5,
+      },
 }
 
 export const StyleHelper = StyleSheet.create(commonStyles);
