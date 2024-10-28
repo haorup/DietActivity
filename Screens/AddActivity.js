@@ -59,10 +59,21 @@ export default function AddActivity({ itemData = null }) {
   function handleSave() {
     if (checkInputs()) {
       let newEntry = makeNewActivity();
-      newEntry.showSpecialActivity = showSpecialIcon; // update the special icon
-      itemData ? updateDB('activity', itemData.id, newEntry)
-        : writeToDB('activity', newEntry);
-      navigation.navigate('Activity');
+      if (itemData === null) {
+        writeToDB('activity', newEntry);
+        navigation.navigate('Activity');
+      } else {
+        Alert.alert('Important', 'Are you sure you want to save these changes?', [
+          {
+            text: 'Yes', onPress: () => {
+              newEntry.showSpecialActivity = showSpecialIcon; // update the special icon
+              updateDB('activity', itemData.id, newEntry);
+              navigation.navigate('Activity');
+            }
+          },
+          { text: 'No' }
+        ]);
+      }
     } else {
       Alert.alert('Invalid input', 'Please check your input values');
     }
